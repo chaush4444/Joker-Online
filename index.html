@@ -25,6 +25,10 @@ body{
   background:
     radial-gradient(circle at 50% 0%,#173b2e 0%,#091712 32%,#040807 72%);
 }
+button{font:inherit}
+.screen{display:none}
+.screen.active{display:block}
+
 .app{
   width:100%;
   max-width:480px;
@@ -49,11 +53,7 @@ body{
   align-items:center;
   margin-bottom:26px;
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
+.brand{display:flex;align-items:center;gap:11px}
 .mark{
   width:43px;height:43px;
   border:1px solid rgba(217,182,93,.55);
@@ -90,10 +90,7 @@ body{
     rgba(13,23,20,.92);
   box-shadow:0 18px 45px rgba(0,0,0,.28);
 }
-.profile-top{
-  display:flex;
-  align-items:center;
-}
+.profile-top{display:flex;align-items:center}
 .avatar{
   width:58px;height:58px;
   border-radius:50%;
@@ -135,16 +132,9 @@ body{
 .stat:last-child{border:0}
 .stat strong{display:block;font-size:17px;color:#fff;margin-bottom:3px}
 .stat span{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
-.hero{
-  text-align:center;
-  padding:35px 5px 25px;
-}
-.cards-logo{
-  height:90px;
-  position:relative;
-  margin:auto;
-  width:120px;
-}
+
+.hero{text-align:center;padding:35px 5px 25px}
+.cards-logo{height:90px;position:relative;margin:auto;width:120px}
 .mini-card{
   position:absolute;
   width:58px;height:80px;
@@ -164,7 +154,6 @@ body{
 .c2{right:15px;transform:rotate(14deg);color:#8d1e1e}
 .c3{
   left:31px;top:0;
-  transform:rotate(0);
   background:linear-gradient(145deg,#181d1b,#090c0b);
   color:var(--gold2);
   border-color:#8d743b;
@@ -179,12 +168,8 @@ body{
   margin-top:10px;
 }
 .hero h1 span{color:var(--gold2)}
-.hero p{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:8px;
-  letter-spacing:.3px;
-}
+.hero p{color:var(--muted);font-size:13px;margin-top:8px}
+
 .play{
   width:100%;
   height:62px;
@@ -196,7 +181,6 @@ body{
   font-weight:800;
   letter-spacing:.5px;
   box-shadow:0 13px 30px rgba(188,143,54,.18);
-  position:relative;
 }
 .play small{
   display:block;
@@ -230,7 +214,6 @@ body{
   background:linear-gradient(145deg,#101c18,#09110e);
   color:white;
   text-align:left;
-  box-shadow:0 12px 30px rgba(0,0,0,.18);
 }
 .tile-icon{
   width:35px;height:35px;
@@ -289,6 +272,7 @@ body{
   margin-bottom:5px;
 }
 .nav-item.active{color:var(--gold2)}
+
 .modal{
   position:fixed;
   inset:0;
@@ -297,7 +281,7 @@ body{
   display:none;
   align-items:flex-end;
   justify-content:center;
-  z-index:20;
+  z-index:50;
 }
 .modal.show{display:flex}
 .sheet{
@@ -326,117 +310,422 @@ body{
   width:100%;margin-top:13px;padding:14px;
   border:0;border-radius:15px;background:#222b27;color:#bbb;
 }
+
+/* GAME TABLE */
+.game-wrap{
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  padding:12px;
+  background:
+    radial-gradient(circle at 50% 35%,#143a2c 0%,#08130f 45%,#030706 100%);
+}
+.game-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.back-btn,.game-menu{
+  width:42px;height:42px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  color:white;
+  font-size:18px;
+}
+.round-info{text-align:center}
+.round-info strong{
+  display:block;
+  font-family:Georgia,serif;
+  color:var(--gold2);
+  font-size:16px;
+}
+.round-info span{font-size:10px;color:var(--muted)}
+
+.table-shell{
+  position:relative;
+  height:680px;
+  max-height:calc(100vh - 85px);
+  min-height:590px;
+  border-radius:42px;
+  border:7px solid #5a3923;
+  background:
+    radial-gradient(circle at center,#176946 0%,#0d5538 47%,#073b29 100%);
+  box-shadow:
+    inset 0 0 50px rgba(0,0,0,.45),
+    0 20px 55px rgba(0,0,0,.45),
+    inset 0 0 0 2px rgba(220,177,86,.22);
+  overflow:hidden;
+}
+.table-shell:before{
+  content:"";
+  position:absolute;inset:12px;
+  border-radius:32px;
+  border:1px solid rgba(243,217,141,.11);
+  pointer-events:none;
+}
+.table-logo{
+  position:absolute;
+  left:50%;top:48%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  opacity:.11;
+  font-family:Georgia,serif;
+  color:#f5dd9b;
+}
+.table-logo b{display:block;font-size:54px;font-weight:400}
+.table-logo span{font-size:11px;letter-spacing:4px}
+
+.player-seat{
+  position:absolute;
+  min-width:96px;
+  padding:8px 10px;
+  border-radius:16px;
+  background:rgba(5,12,9,.72);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+.player-seat.active-turn{
+  border-color:rgba(243,217,141,.8);
+  box-shadow:0 0 0 2px rgba(243,217,141,.11),0 0 25px rgba(243,217,141,.12);
+}
+.player-row{display:flex;align-items:center;gap:7px}
+.player-dot{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(145deg,#273d34,#101a16);
+  border:1px solid rgba(243,217,141,.3);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold2);
+  font-size:11px;font-weight:800;
+}
+.player-seat strong{display:block;font-size:11px}
+.player-seat small{display:block;color:#9eaaa4;font-size:9px;margin-top:2px}
+.top-seat{top:18px;left:50%;transform:translateX(-50%)}
+.left-seat{left:10px;top:38%}
+.right-seat{right:10px;top:38%}
+.me-seat{
+  left:50%;
+  bottom:126px;
+  transform:translateX(-50%);
+  border-color:rgba(243,217,141,.35);
+}
+
+.table-hud{
+  position:absolute;
+  top:105px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+}
+.hud-pill{
+  padding:7px 10px;
+  border-radius:12px;
+  background:rgba(4,12,8,.58);
+  border:1px solid rgba(255,255,255,.08);
+  color:#d6ddd9;
+  font-size:10px;
+}
+.hud-pill b{color:var(--gold2)}
+
+.center-play{
+  position:absolute;
+  width:190px;height:190px;
+  left:50%;top:48%;
+  transform:translate(-50%,-50%);
+}
+.played-card{
+  width:54px;height:76px;
+  border-radius:9px;
+  background:#f6f0df;
+  color:#171717;
+  position:absolute;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,serif;
+  font-size:21px;
+  box-shadow:0 8px 18px rgba(0,0,0,.35);
+  border:1px solid #fff;
+}
+.played-card.red{color:#9d2424}
+.pc1{left:68px;top:0;transform:rotate(-3deg)}
+.pc2{right:0;top:58px;transform:rotate(8deg)}
+.pc3{left:68px;bottom:0;transform:rotate(4deg)}
+.pc4{left:0;top:58px;transform:rotate(-8deg)}
+
+.hand{
+  position:absolute;
+  left:0;right:0;
+  bottom:18px;
+  height:100px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  padding:0 20px;
+}
+.card{
+  width:62px;height:90px;
+  margin-left:-18px;
+  border-radius:10px;
+  background:linear-gradient(155deg,#fffdf3,#ddd3bc);
+  color:#161616;
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+  padding:6px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  font-family:Georgia,serif;
+  font-size:16px;
+  font-weight:700;
+  transition:.16s;
+}
+.card:first-child{margin-left:0}
+.card.red{color:#9b2222}
+.card.selected{
+  transform:translateY(-20px);
+  box-shadow:0 8px 28px rgba(243,217,141,.35);
+  border-color:var(--gold2);
+}
+.card .center-suit{
+  text-align:center;
+  font-size:27px;
+}
+.turn-banner{
+  position:absolute;
+  left:50%;
+  bottom:112px;
+  transform:translateX(-50%);
+  padding:7px 13px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#f2d78b,#b88932);
+  color:#181107;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.5px;
+  white-space:nowrap;
+}
+.action-bar{
+  position:absolute;
+  left:12px;right:12px;
+  bottom:12px;
+  display:none;
+}
+.game-toast{
+  position:absolute;
+  left:50%;top:55%;
+  transform:translate(-50%,-50%);
+  padding:10px 14px;
+  border-radius:14px;
+  background:rgba(5,10,8,.82);
+  border:1px solid rgba(255,255,255,.08);
+  color:#ddd;
+  font-size:11px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+}
+.game-toast.show{opacity:1}
+
 button:active{transform:scale(.98)}
 </style>
 </head>
 
 <body>
-<div class="app">
-<div class="glow"></div>
 
-<header class="header">
-  <div class="brand">
-    <div class="mark">J</div>
-    <div class="brand-name">Joker <b>Online</b></div>
-  </div>
-  <button class="icon-btn">☰</button>
-</header>
+<div id="homeScreen" class="screen active">
+  <div class="app">
+    <div class="glow"></div>
 
-<section class="profile">
-  <div class="profile-top">
-    <div class="avatar"><div class="avatar-inner">J</div></div>
-    <div class="user">
-      <div class="user-name" id="username">Игрок</div>
-      <div class="user-id">JOKER CLUB MEMBER</div>
+    <header class="header">
+      <div class="brand">
+        <div class="mark">J</div>
+        <div class="brand-name">Joker <b>Online</b></div>
+      </div>
+      <button class="icon-btn">☰</button>
+    </header>
+
+    <section class="profile">
+      <div class="profile-top">
+        <div class="avatar"><div class="avatar-inner">J</div></div>
+
+        <div class="user">
+          <div class="user-name" id="username">Игрок</div>
+          <div class="user-id">JOKER CLUB MEMBER</div>
+        </div>
+
+        <div class="level">LVL 01</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><strong>1000</strong><span>Рейтинг</span></div>
+        <div class="stat"><strong>0</strong><span>Победы</span></div>
+        <div class="stat"><strong>0</strong><span>Игры</span></div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="cards-logo">
+        <div class="mini-card c1">A♠</div>
+        <div class="mini-card c2">A♥</div>
+        <div class="mini-card c3">J</div>
+      </div>
+
+      <h1>JOKER <span>ONLINE</span></h1>
+      <p>Классическая игра. Новый уровень.</p>
+    </section>
+
+    <button class="play" onclick="openModes()">
+      НАЧАТЬ ИГРУ
+      <small>БЫСТРЫЙ СТОЛ • 4 ИГРОКА</small>
+    </button>
+
+    <div class="section-title">
+      <strong>Игровой клуб</strong>
+      <span>JOKER CLUB</span>
     </div>
-    <div class="level">LVL 01</div>
+
+    <div class="menu">
+      <button class="tile" onclick="openModes()">
+        <div class="tile-icon">♠</div>
+        <strong>Быстрая игра</strong>
+        <span>Найти соперников</span>
+      </button>
+
+      <button class="tile" onclick="message('Приватные комнаты добавим следующим этапом')">
+        <div class="tile-icon">♣</div>
+        <strong>Своя комната</strong>
+        <span>Играть с друзьями</span>
+      </button>
+
+      <button class="tile" onclick="message('Рейтинг подключим после игрового ядра')">
+        <div class="tile-icon">♛</div>
+        <strong>Рейтинг</strong>
+        <span>Таблица лидеров</span>
+      </button>
+
+      <button class="tile" onclick="message('Здесь появятся рубашки карт и оформление')">
+        <div class="tile-icon">♦</div>
+        <strong>Коллекция</strong>
+        <span>Карты и оформление</span>
+      </button>
+    </div>
+
+    <div class="season">
+      <div class="season-top">
+        <b>Сезон I · Начало игры</b>
+        <span>38%</span>
+      </div>
+      <div class="bar"><div></div></div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-item active"><i>♠</i>Главная</div>
+      <div class="nav-item"><i>♜</i>Рейтинг</div>
+      <div class="nav-item"><i>♢</i>Коллекция</div>
+      <div class="nav-item"><i>♙</i>Профиль</div>
+    </nav>
   </div>
-
-  <div class="stats">
-    <div class="stat"><strong>1000</strong><span>Рейтинг</span></div>
-    <div class="stat"><strong>0</strong><span>Победы</span></div>
-    <div class="stat"><strong>0</strong><span>Игры</span></div>
-  </div>
-</section>
-
-<section class="hero">
-  <div class="cards-logo">
-    <div class="mini-card c1">A♠</div>
-    <div class="mini-card c2">A♥</div>
-    <div class="mini-card c3">J</div>
-  </div>
-  <h1>JOKER <span>ONLINE</span></h1>
-  <p>Классическая игра. Новый уровень.</p>
-</section>
-
-<button class="play" onclick="openGame()">
-  НАЧАТЬ ИГРУ
-  <small>БЫСТРЫЙ СТОЛ • 4 ИГРОКА</small>
-</button>
-
-<div class="section-title">
-  <strong>Игровой клуб</strong>
-  <span>JOKER CLUB</span>
 </div>
 
-<div class="menu">
-  <button class="tile" onclick="openGame()">
-    <div class="tile-icon">♠</div>
-    <strong>Быстрая игра</strong>
-    <span>Найти соперников</span>
-  </button>
+<div id="gameScreen" class="screen">
+  <div class="game-wrap">
 
-  <button class="tile" onclick="message('Комнаты появятся следующим этапом')">
-    <div class="tile-icon">♣</div>
-    <strong>Своя комната</strong>
-    <span>Играть с друзьями</span>
-  </button>
+    <div class="game-top">
+      <button class="back-btn" onclick="leaveTable()">‹</button>
 
-  <button class="tile" onclick="message('Рейтинг скоро будет подключён')">
-    <div class="tile-icon">♛</div>
-    <strong>Рейтинг</strong>
-    <span>Таблица лидеров</span>
-  </button>
+      <div class="round-info">
+        <strong>Классический Джокер</strong>
+        <span>РАЗДАЧА 1 ИЗ 24</span>
+      </div>
 
-  <button class="tile" onclick="message('Коллекция скоро будет доступна')">
-    <div class="tile-icon">♦</div>
-    <strong>Коллекция</strong>
-    <span>Карты и оформление</span>
-  </button>
-</div>
+      <button class="game-menu">•••</button>
+    </div>
 
-<div class="season">
-  <div class="season-top">
-    <b>Сезон I · Начало игры</b>
-    <span>38%</span>
+    <div class="table-shell">
+
+      <div class="table-hud">
+        <div class="hud-pill">Козырь: <b>♥</b></div>
+        <div class="hud-pill">Заказ: <b>2</b></div>
+      </div>
+
+      <div class="player-seat top-seat active-turn">
+        <div class="player-row">
+          <div class="player-dot">A</div>
+          <div>
+            <strong>Artem</strong>
+            <small>1000 • 0/2</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-seat left-seat">
+        <div class="player-row">
+          <div class="player-dot">M</div>
+          <div>
+            <strong>Max</strong>
+            <small>1038 • 1/1</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-seat right-seat">
+        <div class="player-row">
+          <div class="player-dot">D</div>
+          <div>
+            <strong>Dima</strong>
+            <small>972 • 0/0</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-seat me-seat">
+        <div class="player-row">
+          <div class="player-dot">J</div>
+          <div>
+            <strong id="tableUsername">Ты</strong>
+            <small>1000 • 0/2</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-logo">
+        <b>J</b>
+        <span>JOKER CLUB</span>
+      </div>
+
+      <div class="center-play" id="centerPlay">
+        <div class="played-card pc1">K♣</div>
+        <div class="played-card red pc2">10♥</div>
+        <div class="played-card pc4">Q♠</div>
+      </div>
+
+      <div class="turn-banner">ХОД ИГРОКА ARTEM</div>
+
+      <div class="hand" id="hand"></div>
+
+      <div class="game-toast" id="gameToast">Карта выбрана</div>
+    </div>
+
   </div>
-  <div class="bar"><div></div></div>
-</div>
-
-<nav class="nav">
-  <div class="nav-item active"><i>♠</i>Главная</div>
-  <div class="nav-item"><i>♜</i>Рейтинг</div>
-  <div class="nav-item"><i>♢</i>Коллекция</div>
-  <div class="nav-item"><i>♙</i>Профиль</div>
-</nav>
 </div>
 
 <div class="modal" id="gameModal">
   <div class="sheet">
     <h2>Выберите режим</h2>
-    <p>Мы строим полноценный игровой клуб. Сейчас проверяем новый интерфейс перед подключением игрового стола.</p>
+    <p>Выберите классическую игру или приватную комнату с друзьями.</p>
 
-    <button class="mode" onclick="message('Игровой стол подключим следующим шагом')">
+    <button class="mode" onclick="startClassicGame()">
       <b>Классический Джокер</b>
-      <span>4 игрока · полный матч</span>
+      <span>4 игрока · полный матч · 24 раздачи</span>
     </button>
 
-    <button class="mode" onclick="message('Приватные комнаты скоро появятся')">
+    <button class="mode" onclick="message('Приватные комнаты подключим после игрового ядра')">
       <b>Комната с друзьями</b>
       <span>Создать приватный стол</span>
     </button>
 
-    <button class="close" onclick="closeGame()">Закрыть</button>
+    <button class="close" onclick="closeModes()">Закрыть</button>
   </div>
 </div>
 
@@ -448,30 +737,119 @@ if(tg){
   tg.expand();
 
   const user=tg.initDataUnsafe?.user;
+
   if(user?.first_name){
     document.getElementById("username").textContent=user.first_name;
+    document.getElementById("tableUsername").textContent=user.first_name;
   }
 }
 
+const demoHand=[
+  {v:"A",s:"♠"},
+  {v:"10",s:"♥"},
+  {v:"K",s:"♦"},
+  {v:"Q",s:"♣"},
+  {v:"9",s:"♠"},
+  {v:"JOKER",s:"★"}
+];
+
 function haptic(){
-  if(tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+  if(tg?.HapticFeedback){
+    tg.HapticFeedback.selectionChanged();
+  }
 }
 
-function openGame(){
+function openModes(){
   haptic();
   document.getElementById("gameModal").classList.add("show");
 }
 
-function closeGame(){
+function closeModes(){
   haptic();
   document.getElementById("gameModal").classList.remove("show");
 }
 
+function startClassicGame(){
+  haptic();
+  closeModes();
+
+  document.getElementById("homeScreen").classList.remove("active");
+  document.getElementById("gameScreen").classList.add("active");
+
+  renderHand();
+  window.scrollTo(0,0);
+}
+
+function leaveTable(){
+  haptic();
+
+  document.getElementById("gameScreen").classList.remove("active");
+  document.getElementById("homeScreen").classList.add("active");
+
+  window.scrollTo(0,0);
+}
+
+function renderHand(){
+  const hand=document.getElementById("hand");
+  hand.innerHTML="";
+
+  demoHand.forEach((cardData,index)=>{
+    const card=document.createElement("div");
+
+    const isRed=
+      cardData.s==="♥" ||
+      cardData.s==="♦";
+
+    card.className="card"+(isRed?" red":"");
+
+    if(cardData.v==="JOKER"){
+      card.innerHTML=`
+        <div>J</div>
+        <div class="center-suit">★</div>
+        <div style="text-align:right">J</div>
+      `;
+    }else{
+      card.innerHTML=`
+        <div>${cardData.v}${cardData.s}</div>
+        <div class="center-suit">${cardData.s}</div>
+        <div style="text-align:right">${cardData.v}${cardData.s}</div>
+      `;
+    }
+
+    card.onclick=()=>{
+      document.querySelectorAll(".card").forEach(c=>{
+        c.classList.remove("selected");
+      });
+
+      card.classList.add("selected");
+      showToast("Выбрана карта "+cardData.v+cardData.s);
+      haptic();
+    };
+
+    hand.appendChild(card);
+  });
+}
+
+function showToast(text){
+  const toast=document.getElementById("gameToast");
+  toast.textContent=text;
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },900);
+}
+
 function message(text){
   haptic();
-  if(tg?.showAlert) tg.showAlert(text);
-  else alert(text);
+
+  if(tg?.showAlert){
+    tg.showAlert(text);
+  }else{
+    alert(text);
+  }
 }
 </script>
+
 </body>
 </html>
