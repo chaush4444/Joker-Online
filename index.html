@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Joker Online</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at center, #146c43 0%, #063b29 55%, #021b14 100%);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 16px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #ffd54a;
+    }
+
+    .coins {
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.15);
+      padding: 9px 13px;
+      border-radius: 18px;
+      font-weight: bold;
+    }
+
+    .table {
+      position: relative;
+      min-height: 510px;
+      border-radius: 34px;
+      border: 5px solid #7a4b26;
+      background:
+        radial-gradient(circle at center, #188b54 0%, #0b663e 65%, #06482e 100%);
+      box-shadow:
+        inset 0 0 40px rgba(0,0,0,.35),
+        0 15px 35px rgba(0,0,0,.35);
+      padding: 20px;
+    }
+
+    .player {
+      position: absolute;
+      background: rgba(0,0,0,.42);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 8px 12px;
+      border-radius: 15px;
+      text-align: center;
+      min-width: 90px;
+      font-size: 13px;
+    }
+
+    .player strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .top-player {
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .left-player {
+      left: 10px;
+      top: 43%;
+    }
+
+    .right-player {
+      right: 10px;
+      top: 43%;
+    }
+
+    .me-player {
+      bottom: 92px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,213,74,.18);
+      border-color: rgba(255,213,74,.5);
+    }
+
+    .center {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .round {
+      font-size: 14px;
+      opacity: .75;
+      margin-bottom: 8px;
+    }
+
+    .joker {
+      font-size: 66px;
+      filter: drop-shadow(0 5px 8px rgba(0,0,0,.3));
+    }
+
+    .status {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .hand {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 15px;
+      height: 85px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .card {
+      width: 55px;
+      height: 80px;
+      margin-left: -12px;
+      background: white;
+      color: #111;
+      border-radius: 9px;
+      border: 2px solid #ddd;
+      box-shadow: 0 5px 10px rgba(0,0,0,.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .card:first-child {
+      margin-left: 0;
+    }
+
+    .card.red {
+      color: #d52626;
+    }
+
+    .card.selected {
+      transform: translateY(-18px);
+      border-color: #ffd54a;
+    }
+
+    .panel {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 15px 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #ffd54a;
+      color: #171717;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .info {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.28);
+      font-size: 13px;
+      line-height: 1.5;
+      opacity: .95;
+    }
+
+    .version {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      opacity: .45;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <div class="topbar">
+      <div class="logo">🃏 Joker <span>Online</span></div>
+      <div class="coins">🪙 <span id="coins">1250</span></div>
+    </div>
+
+    <div class="table">
+
+      <div class="player top-player">
+        <strong>🤖 Игрок 2</strong>
+        0 очков
+      </div>
+
+      <div class="player left-player">
+        <strong>🤖 Игрок 3</strong>
+        0 очков
+      </div>
+
+      <div class="player right-player">
+        <strong>🤖 Игрок 4</strong>
+        0 очков
+      </div>
+
+      <div class="player me-player">
+        <strong id="username">😎 Ты</strong>
+        0 очков
+      </div>
+
+      <div class="center">
+        <div class="round">РАЗДАЧА 1 / 24</div>
+        <div class="joker">🃏</div>
+        <div class="status" id="status">Нажми «Раздать карты»</div>
+      </div>
+
+      <div class="hand" id="hand"></div>
+
+    </div>
+
+    <div class="panel">
+      <button class="primary" onclick="dealCards()">
+        🃏 Раздать карты
+      </button>
+
+      <button class="secondary" onclick="newGame()">
+        🔄 Новая игра
+      </button>
+    </div>
+
+    <div class="info">
+      🎮 Сейчас это первая тестовая версия Joker Online.
+      Следующим этапом добавим настоящие правила Джокера,
+      ставки-заказы внутри партии, подсчёт очков, комнаты,
+      игру с друзьями, рейтинг и оформление профиля.
+    </div>
+
+    <div class="version">
+      Joker Online • Prototype 0.1
+    </div>
+
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+
+      const user = tg.initDataUnsafe?.user;
+
+      if (user?.first_name) {
+        document.getElementById("username").textContent =
+          "😎 " + user.first_name;
+      }
+    }
+
+    const deck = [
+      "9♠","10♠","J♠","Q♠","K♠","A♠",
+      "9♥","10♥","J♥","Q♥","K♥","A♥",
+      "9♦","10♦","J♦","Q♦","K♦","A♦",
+      "9♣","10♣","J♣","Q♣","K♣","A♣",
+      "🃏","🃏"
+    ];
+
+    function shuffle(array) {
+      const copy = [...array];
+
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+
+      return copy;
+    }
+
+    function dealCards() {
+      const hand = document.getElementById("hand");
+      const status = document.getElementById("status");
+
+      hand.innerHTML = "";
+
+      const cards = shuffle(deck).slice(0, 6);
+
+      cards.forEach(cardText => {
+        const card = document.createElement("div");
+
+        const red =
+          cardText.includes("♥") ||
+          cardText.includes("♦");
+
+        card.className = "card" + (red ? " red" : "");
+
+        if (cardText === "🃏") {
+          card.innerHTML = `
+            <div>🃏</div>
+            <div style="text-align:center;font-size:28px">🃏</div>
+            <div style="text-align:right">J</div>
+          `;
+        } else {
+          const value = cardText.slice(0, -1);
+          const suit = cardText.slice(-1);
+
+          card.innerHTML = `
+            <div>${value}${suit}</div>
+            <div style="text-align:center;font-size:25px">${suit}</div>
+            <div style="text-align:right">${value}${suit}</div>
+          `;
+        }
+
+        card.onclick = () => {
+          document.querySelectorAll(".card")
+            .forEach(c => c.classList.remove("selected"));
+
+          card.classList.add("selected");
+
+          status.textContent = "Карта выбрана: " + cardText;
+
+          if (tg?.HapticFeedback) {
+            tg.HapticFeedback.selectionChanged();
+          }
+        };
+
+        hand.appendChild(card);
+      });
+
+      status.textContent = "Твои карты готовы";
+
+      if (tg?.HapticFeedback) {
+        tg.HapticFeedback.notificationOccurred("success");
+      }
+    }
+
+    function newGame() {
+      document.getElementById("hand").innerHTML = "";
+      document.getElementById("status").textContent =
+        "Нажми «Раздать карты»";
+    }
+  </script>
+</body>
+</html>
