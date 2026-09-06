@@ -5,4 +5,4 @@ const JOKER_CONFIG = {
   supabaseUrl: "https://jnsnamfwzcwxslbgfxdo.supabase.co",
 
   supabaseKey: "sb_publishable_IwzDfacCibYIvNqtzgR_qg_ltvG_Zfr"
-};
+}; 
