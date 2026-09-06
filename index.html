@@ -593,7 +593,7 @@ button:active{transform:scale(.98)}
         <span>Найти соперников</span>
       </button>
 
-      <button class="tile" onclick="message('Приватные комнаты добавим следующим этапом')">
+      <button class="tile" onclick="openPrivateRoom()">
         <div class="tile-icon">♣</div>
         <strong>Своя комната</strong>
         <span>Играть с друзьями</span>
@@ -768,6 +768,37 @@ function openModes(){
 function closeModes(){
   haptic();
   document.getElementById("gameModal").classList.remove("show");
+}
+  async function openPrivateRoom() {
+  haptic();
+
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+
+  try {
+    const response = await fetch(`${JOKER_CONFIG.supabaseUrl}/rest/v1/rooms`, {
+      method: "POST",
+      headers: {
+        "apikey": JOKER_CONFIG.supabaseKey,
+        "Authorization": `Bearer ${JOKER_CONFIG.supabaseKey}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify({
+        room_code: code,
+        status: "waiting",
+        max_players: 4
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Не удалось создать комнату");
+    }
+
+    alert(`Комната создана!\nКод комнаты: ${code}`);
+  } catch (error) {
+    console.error(error);
+    alert("Ошибка создания комнаты. Попробуй ещё раз.");
+  }
 }
 
 function startClassicGame(){
