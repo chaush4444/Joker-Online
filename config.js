@@ -1,7 +1,8 @@
-// Joker Online — multiplayer configuration
-// Здесь позже появятся данные подключения к онлайн-серверу.
-
 const JOKER_CONFIG = {
-  version: "0.4",
-  multiplayer: true
+  version: "0.5",
+  multiplayer: true,
+
+  supabaseUrl: "https://jnsnamfwzcwxslbgfxdo.supabase.co",
+
+  supabaseKey: "sb_publishable_IwzDfacCibYIvNqtzgR_qg_ltvG_Zfr"
 };
