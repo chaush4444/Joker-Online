@@ -788,16 +788,17 @@ function closeModes(){
         status: "waiting",
         max_players: 4
       })
-    });
-
     if (!response.ok) {
-      throw new Error("Не удалось создать комнату");
-    }
+  const errorText = await response.text();
+  throw new Error(errorText);
+}
+
+    
 
     alert(`Комната создана!\nКод комнаты: ${code}`);
   } catch (error) {
     console.error(error);
-    alert("Ошибка создания комнаты. Попробуй ещё раз.");
+alert("Ошибка: " + error.message);
   }
 }
 
