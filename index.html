@@ -788,6 +788,7 @@ function closeModes(){
         status: "waiting",
         max_players: 4
       })
+      });
     if (!response.ok) {
   const errorText = await response.text();
   throw new Error(errorText);
